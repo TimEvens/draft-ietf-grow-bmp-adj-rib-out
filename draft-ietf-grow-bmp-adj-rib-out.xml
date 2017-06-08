@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+        <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+        <!ENTITY IANA_STAT_ADJRIBOUT_PRE "TBD">
+        <!ENTITY IANA_STAT_ADJRIBOUT_POST "TBD">
+        <!ENTITY IANA_STAT_ADJRIBOUT_PER_SAFI_PRE "TBD">
+        <!ENTITY IANA_STAT_ADJRIBOUT_PER_SAFI_POST "TBD">
+        ]>
+
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc strict="yes" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+
+<rfc category="std" docName="draft-ietf-grow-bmp-adj-rib-out-00"
+     ipr="trust200902" submissionType="IETF" updates="7854">
+
+    <front>
+        <title abbrev="BMP Adj-RIB-Out">
+            Support for Adj-RIB-Out in BGP Monitoring Protocol (BMP)</title>
+
+        <author fullname="Tim Evens" initials="T" surname="Evens">
+            <organization>Cisco Systems</organization>
+
+            <address>
+
+                <postal>
+                    <street>2901 Third Avenue, Suite 600</street>
+                    <city>Seattle</city>
+                    <region>WA</region>
+                    <code>98121</code>
+                    <country>USA</country>
+                </postal>
+
+                <email>tievens@cisco.com</email>
+
+            </address>
+        </author>
+
+        <author fullname="Serpil Bayraktar" initials="S" surname="Bayraktar">
+            <organization>Cisco Systems</organization>
+
+            <address>
+
+                <postal>
+                    <street>3700 Cisco Way</street>
+                    <city>San Jose</city>
+                    <region>CA</region>
+                    <code>95134</code>
+                    <country>USA</country>
+                </postal>
+
+                <email>serpil@cisco.com</email>
+
+            </address>
+        </author>
+
+        <author fullname="Paolo Lucente" initials="P" surname="Lucente">
+            <organization>NTT Communications</organization>
+
+            <address>
+
+                <postal>
+                    <street>Siriusdreef 70-72</street>
+                    <city>Hoofddorp</city>
+                    <code>2132</code>
+                    <region>WT</region>
+                    <country>NL</country>
+                </postal>
+
+                <email>paolo@ntt.net</email>
+
+            </address>
+        </author>
+
+        <author fullname="Penghui Mi" initials="P" surname="Mi">
+            <organization>Tencent</organization>
+
+            <address>
+
+                <postal>
+                    <street>Tengyun Building,Tower A ,No. 397 Tianlin Road</street>
+                    <city>Shanghai</city>
+                    <code>200233</code>
+                    <region></region>
+                    <country>China</country>
+                </postal>
+
+                <email>kevinmi@tencent.com</email>
+
+            </address>
+        </author>
+
+        <author fullname="Shunwan Zhuang" initials="S" surname="Zhuang">
+            <organization>Huawei</organization>
+
+            <address>
+
+                <postal>
+                    <street>Huawei Bld., No.156 Beiqing Rd.</street>
+                    <city>Beijing</city>
+                    <code>100095</code>
+                    <region></region>
+                    <country>China</country>
+                </postal>
+
+                <email>zhuangshunwan@huawei.com</email>
+
+            </address>
+        </author>
+
+
+        <date year="2017"/>
+
+        <area>General</area>
+
+        <workgroup>Global Routing Operations</workgroup>
+        <keyword>BGP</keyword>
+        <keyword>BMP</keyword>
+        <keyword>adj-rib-out</keyword>
+
+        <abstract>
+            <t>
+                The BGP Monitoring Protocol (BMP) defines access to only the Adj-RIB-
+                In Routing Information Bases (RIBs).  This document updates the BGP
+                Monitoring Protocol (BMP) RFC 7854 by adding access to the Adj-RIB-
+                Out RIBs. It adds a new flag to the peer header to distinguish Adj-
+                RIB-In and Adj-RIB-Out.
+            </t>
+        </abstract>
+    </front>
+
+    <middle>
+        <section title="Introduction" anchor="Introduction">
+            <t>
+                BGP Monitoring Protocol (BMP) defines monitoring of the received
+                (e.g. Adj-RIB-In) Routing Information Bases (RIBs) per peer.  The
+                Adj-RIB-In pre-policy conveys to a BMP receiver all RIB data before
+                any policy has been applied.  The Adj-RIB-In post-policy conveys to a
+                BMP receiver all RIB data after policy filters and/or modifications
+                have been applied.  An example of pre-policy verses post-policy is
+                when an inbound policy applies attribute modification or filters.
+                Pre-policy would contain information prior to the inbound policy
+                changes or filters of data. Post policy would convey the changed data
+                or would not contain the filtered data.
+
+                <vspace blankLines="1"/>
+
+                Monitoring the received updates that the router received before any
+                policy has been applied is the primary level of monitoring for most
+                use-cases.  Inbound policy validation and auditing is the primary
+                use-case for enabling post-policy monitoring.
+
+                <vspace blankLines="1"/>
+
+                In order for a BMP receiver to receive any BGP data, the BMP sender
+                (e.g. router) needs to have an established BGP peering session and
+                actively be receiving updates for an Adj-RIB-In.
+
+                <vspace blankLines="1"/>
+
+                Being able to only monitor the Adj-RIB-In puts a restriction on what
+                data is available to BMP receivers via BMP senders (e.g. routers).
+                This is an issue when the receiving end of the BGP peer is not
+                enabled for BMP or when it is not accessible for administrative
+                reasons.  For example, a service provider advertises prefixes to a
+                customer, but the service provider cannot see what it advertises via
+                BMP. Asking the customer to enable BMP and monitoring of the Adj-RIB-
+                In is not feasible.
+
+                <vspace blankLines="1"/>
+
+                This document updates BGP Monitoring Protocol (BMP) <xref target="RFC7854">RFC 7854</xref>
+                peer header by adding a new flag to distinguish Adj-RIB-In
+                verses Adj-RIB-Out.
+
+                <vspace blankLines="1"/>
+
+                Adding Adj-RIB-Out enables the ability for a BMP sender to send to a
+                BMP receiver what it advertises to BGP peers, which can be used for
+                outbound policy validation and to monitor RIBs that were advertised.
+            </t>
+        </section>
+
+        <section title="Terminology">
+            <t>
+                The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+                "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+                document are to be interpreted as described in <xref target="RFC2119">RFC 2119</xref>.
+            </t>
+        </section>
+
+        <section title="Definitions">
+            <t>
+                <list style="symbols">
+                    <t>
+                        Adj-RIB-Out: As defined in <xref target="RFC4271"/>, "The Adj-RIBs-Out contains
+                        the routes for advertisement to specific peers by means of the
+                        local speaker's UPDATE messages."
+                    </t>
+
+                    <t>
+                        Pre-Policy Adj-RIB-Out: The result before applying the outbound
+                        policy to an Adj-RIB-Out. This normally would match what is in the
+                        local RIB.
+                    </t>
+
+                    <t>
+                        Post-Policy Adj-RIB-Out: The result of applying outbound policy to
+                        an Adj-RIB-Out. This MUST be what is actually sent to the peer.
+                    </t>
+                </list>
+            </t>
+        </section>
+
+        <section title="Per-Peer Header" anchor="PeerFlags">
+            <t>
+                The per-peer header has the same structure and flags as defined in
+                <xref target="RFC7854">section 4.2</xref> with the following O flag addition:
+            </t>
+            <figure align="center">
+                <artwork align="center"><![CDATA[
+ 0 1 2 3 4 5 6 7
++-+-+-+-+-+-+-+-+
+|V|L|A|O| Resv  |
++-+-+-+-+-+-+-+-+
+]]></artwork>
+            </figure>
+
+            <t>
+                <list style="symbols">
+                    <t>
+                        The O flag indicates Adj-RIB-In if set to 0 and Adj-RIB-Out if
+                        set to 1.
+                    </t>
+                </list>
+
+                <vspace blankLines="1"/>
+
+                The existing flags are defined in <xref target="RFC7854">section 4.2</xref> and the
+                remaining bits are reserved for future use.  They SHOULD be transmitted as 0 and their
+                values MUST be ignored on receipt.
+            </t>
+        </section>
+
+        <section title="Adj-RIB-Out">
+            <section title="Post-Policy">
+                <t>
+                    The primary use-case in monitoring Adj-RIB-Out is to monitor the
+                    updates transmitted to the BGP peer after outbound policy has been
+                    applied. These updates reflect the result after modifications and
+                    filters have been applied (e.g. Adj-RIB-Out Post-Policy).  The L flag
+                    MUST be set to 1 in this case to indicate post-policy.
+                </t>
+            </section>
+
+            <section title="Pre-Policy">
+                <t>
+                    As with Adj-RIB-In policy validation, there are use-cases that pre-
+                    policy Adj-RIB-Out is used to validate and audit outbound policies.
+                    For example, a comparison between pre-policy and post-policy can be
+                    used to validate the outbound policy.  The L flag MUST be set to 0 in
+                    this case to indicate pre-policy.
+                </t>
+            </section>
+        </section>
+
+        <section title="BMP Messages">
+            <t>
+                Many BMP messages have a per-peer header but some are not applicable
+                to Adj-RIB-In or Adj-RIB-Out monitoring.  Unless otherwise defined,
+                the O flag should be set to 0 in the per-peer header in BMP
+                messages.
+            </t>
+
+            <section title="Route Monitoring and Route Mirroring">
+                <t>
+                    The O flag MUST be set accordingly to indicate if the route monitor
+                    or route mirroring message conveys Adj-RIB-In or Adj-RIB-Out.
+                </t>
+            </section>
+
+            <section title="Statistics Report" anchor="StatisticsReport">
+                <t>
+                    Statistics report message has Stat Type field to indicate the
+                    statistic carried in the Stat Data field. Statistics report messages
+                    are not specific to Adj-RIB-In or Adj-RIB-Out and MUST have the O
+                    flag set to zero. The O flag SHOULD be ignored by the BMP receiver.
+
+                    <vspace blankLines="1"/>
+                    The following new statistic types are added:
+
+                    <list style="symbols">
+                        <t>
+                            Stat Type = &IANA_STAT_ADJRIBOUT_PRE;: (64-bit Gauge)
+                            Number of routes in Adj-RIBs-Out Pre-Policy.
+                        </t>
+
+                        <t>
+                            Stat Type = &IANA_STAT_ADJRIBOUT_POST;: (64-bit Gauge)
+                            Number of routes in Adj-RIBs-Out Post-Policy.
+                        </t>
+
+                        <t>
+                            Stat Type = &IANA_STAT_ADJRIBOUT_PER_SAFI_PRE;: Number of routes
+                            in per-AFI/SAFI Adj-RIB-Out Pre- Policy.  The value is structured
+                            as: 2-byte Address Family Identifier (AFI), 1-byte Subsequent Address Family Identifier
+                            (SAFI), followed by a 64-bit Gauge.
+                        </t>
+
+                        <t>
+                            Stat Type = &IANA_STAT_ADJRIBOUT_PER_SAFI_POST;: Number of routes in per-AFI/SAFI Adj-RIB-Out
+                            Post-Policy.  The value is structured as: 2-byte Address Family
+                            Identifier (AFI), 1-byte Subsequent Address Family Identifier
+                            (SAFI), followed by a 64-bit Gauge.
+                        </t>
+                    </list>
+                </t>
+            </section>
+
+            <section title="Peer Down and Up Notifications">
+                <t>
+                    PEER UP and DOWN notifications convey BGP peering session state to
+                    BMP receivers.  The state is independent of whether or not route
+                    monitoring or route mirroring messages will be sent for Adj-RIB-In,
+                    Adj-RIB-Out, or both.  BMP receiver implementations SHOULD ignore the
+                    O flag in PEER UP and DOWN notifications. BMP receiver implementations
+                    MUST use the per-peer header O flag in route monitoring and mirroring
+                    messages in order to identify if the message is for Adj-RIB-In or Adj-RIB-Out.
+                </t>
+            </section>
+
+        </section>
+
+        <section title="Security Considerations">
+            <t>
+                It is not believed that this document adds any additional security
+                considerations.
+            </t>
+        </section>
+
+        <section title="IANA Considerations">
+            <t>
+                This document requests that IANA assign the following new parameters
+                to the <eref
+                          target="https://www.iana.org/assignments/bmp-parameters/bmp-parameters.xhtml">
+                BMP parameters name space</eref>.
+            </t>
+
+            <section title="BMP Peer Flags">
+                <t>
+                    This document defines the following new per-peer header flags (<xref target="PeerFlags"/>):
+
+                    <list style="symbols">
+                        <t>
+                            Flag 3 as O flag: The O flag indicates Adj-RIB-In if set to 0 and Adj-RIB-Out if
+                            set to 1.
+                        </t>
+                    </list>
+                </t>
+            </section>
+
+            <section title="BMP Statistics Types">
+                <t>
+                    This document defines four new statistic types for statistics
+                    reporting (<xref target="StatisticsReport"/>):
+
+                    <list style="symbols">
+                        <t>
+                            Stat Type = &IANA_STAT_ADJRIBOUT_PRE;: (64-bit Gauge)
+                            Number of routes in Adj-RIBs-Out Pre-Policy.
+                        </t>
+
+                        <t>
+                            Stat Type = &IANA_STAT_ADJRIBOUT_POST;: (64-bit Gauge)
+                            Number of routes in Adj-RIBs-Out Post-Policy.
+                        </t>
+
+                        <t>
+                            Stat Type = &IANA_STAT_ADJRIBOUT_PER_SAFI_PRE;: Number of routes
+                            in per-AFI/SAFI Adj-RIB-Out Pre- Policy.  The value is structured
+                            as: 2-byte Address Family Identifier (AFI), 1-byte Subsequent Address Family Identifier
+                            (SAFI), followed by a 64-bit Gauge.
+                        </t>
+
+                        <t>
+                            Stat Type = &IANA_STAT_ADJRIBOUT_PER_SAFI_POST;: Number of routes in per-AFI/SAFI Adj-RIB-Out
+                            Post-Policy.  The value is structured as: 2-byte Address Family
+                            Identifier (AFI), 1-byte Subsequent Address Family Identifier
+                            (SAFI), followed by a 64-bit Gauge.
+                        </t>
+                    </list>
+                </t>
+            </section>
+        </section>
+
+
+    </middle>
+
+    <back>
+
+        <references title="Normative References">
+            &RFC2119;
+
+            <?rfc include="reference.RFC.4271.xml"?>
+            <?rfc include="reference.RFC.7854.xml"?>
+
+        </references>
+
+        <section anchor="Acknowledgements" title="Acknowledgements" numbered="no">
+            <t>
+                The authors would like to thank John Scudder for his valuable input.
+            </t>
+        </section>
+
+        <section anchor="Contributors" title="Contributors" numbered="no">
+            <t>
+                Manish Bhardwaj<vspace/>
+                Cisco Systems<vspace/>
+                3700 Cisco Way<vspace/>
+                San Jose, CA 95134<vspace/>
+                USA<vspace/>
+                <vspace blankLines="1"/>
+                Email: manbhard@cisco.com<vspace blankLines="1"/>
+            </t>
+
+            <t>
+                Xianyuzheng<vspace/>
+                Tencent<vspace/>
+                Tencent Building, Kejizhongyi Avenue,<vspace/>
+                Hi-techPark, Nanshan District,Shenzhen 518057, P.R.China<vspace/>
+                <vspace blankLines="1"/>
+            </t>
+
+
+            <t>
+                Weiguo<vspace/>
+                Tencent<vspace/>
+                Tencent Building, Kejizhongyi Avenue,<vspace/>
+                Hi-techPark, Nanshan District,Shenzhen 518057, P.R.China<vspace/>
+
+                <vspace blankLines="1"/>
+            </t>
+
+            <t>
+                Shugang cheng<vspace/>
+                H3C<vspace/>
+
+                <vspace blankLines="1"/>
+            </t>
+
+        </section>
+
+    </back>
+</rfc>
