@@ -5,6 +5,7 @@
         <!ENTITY IANA_STAT_ADJRIBOUT_POST "TBD">
         <!ENTITY IANA_STAT_ADJRIBOUT_PER_SAFI_PRE "TBD">
         <!ENTITY IANA_STAT_ADJRIBOUT_PER_SAFI_POST "TBD">
+        <!ENTITY IANA_PEER_INFO_TLV_ADMIN_LABEL "TBD">
         ]>
 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
@@ -16,7 +17,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" docName="draft-ietf-grow-bmp-adj-rib-out-00"
+<rfc category="std" docName="draft-ietf-grow-bmp-adj-rib-out-01"
      ipr="trust200902" submissionType="IETF" updates="7854">
 
     <front>
@@ -114,7 +115,7 @@
         </author>
 
 
-        <date year="2017"/>
+        <date year="2018"/>
 
         <area>General</area>
 
@@ -253,8 +254,15 @@
                     The primary use-case in monitoring Adj-RIB-Out is to monitor the
                     updates transmitted to the BGP peer after outbound policy has been
                     applied. These updates reflect the result after modifications and
-                    filters have been applied (e.g. Adj-RIB-Out Post-Policy).  The L flag
-                    MUST be set to 1 in this case to indicate post-policy.
+                    filters have been applied (e.g. Adj-RIB-Out Post-Policy). Some
+                    attributes are set when the BGP message is transmitted,
+                    such as next-hop.   Adj-RIB-Out Post-Policy MUST convey what is
+                    actually transmitted to the peer, next-hop and any attribute set during
+                    transmission should also be set and transmitted to the BMP receiver.
+
+                    <vspace blankLines="1"/>
+
+                    The L flag MUST be set to 1 to indicate post-policy.
                 </t>
             </section>
 
@@ -263,10 +271,33 @@
                     As with Adj-RIB-In policy validation, there are use-cases that pre-
                     policy Adj-RIB-Out is used to validate and audit outbound policies.
                     For example, a comparison between pre-policy and post-policy can be
-                    used to validate the outbound policy.  The L flag MUST be set to 0 in
-                    this case to indicate pre-policy.
+                    used to validate the outbound policy.
+
+                    <vspace blankLines="1"/>
+
+                    Depending on BGP peering session type (IBGP, IBGP route reflector client,
+                    EBGP) the candidate routes that make up the Pre-Policy Adj-RIB-Out do not
+                    contain all local-rib routes.  Pre-Policy Adj-RIB-Out conveys only routes
+                    that are available based on the peering type.  Post-Policy represents the
+                    filtered/changed routes from the available routes.
+
+                    <vspace blankLines="1"/>
+
+                    Some attributes are set only during transmission of the BGP message,
+                    e.g. Post-Policy.  It is common that next-hop may be null, loopback, or
+                    similar during this phase.  All mandatory attributes, such as next-hop,
+                    MUST be either ZERO or have an empty length if they are unknown at the
+                    Pre-Policy phase.  The BMP receiver will treat zero or empty mandatory
+                    attributes as self originated.
+
+                    <vspace blankLines="1"/>
+
+                    The L flag MUST be set to 0 to indicate pre-policy.
                 </t>
+
             </section>
+
+
         </section>
 
         <section title="BMP Messages">
@@ -332,8 +363,75 @@
                     MUST use the per-peer header O flag in route monitoring and mirroring
                     messages in order to identify if the message is for Adj-RIB-In or Adj-RIB-Out.
                 </t>
+
+
+                <section title="Peer Up Information" anchor="PeerUpInfoTlv">
+                    <t>
+                        The following peer UP information TLV types are added:
+
+                        <list style="symbols">
+                            <t>
+                                Type = &IANA_PEER_INFO_TLV_ADMIN_LABEL;: Admin Label.
+                                The Information field contains a free-form UTF-8 string whose length is
+                                given by the Information Length field.  The value is administratively
+                                assigned.  There is no requirement to terminate the string with null
+                                or any other character.
+
+                                <vspace blankLines="1"/>
+
+                                Multiple admin labels can be included in the Peer UP.  When multiple admin labels
+                                are included the BMP receiver MUST preserve the order.
+
+                                <vspace blankLines="1"/>
+
+                                The TLV is optional.
+                            </t>
+                        </list>
+                    </t>
+                </section>
             </section>
 
+        </section>
+
+        <section title="Other Considerations">
+            <section title="Peer and Update Groups">
+                <t>
+                    Peer and update groups are used to group updates shared by many peers.
+                    This is a level of efficiency in the implementation, not a true
+                    representation of what is conveyed to a peer in either Pre-Policy or
+                    Post-Policy.
+
+                    <vspace blankLines="1"/>
+
+                    One of the use-cases to monitor Adj-RIB-Out Post-Policy is to validate and continually
+                    ensure the egress updates match what is expected. For example, wholesale peers should
+                    never have routes with community X:Y sent to them.  In this use-case, there maybe
+                    hundreds of wholesale peers but a single peer could have represented the group.
+
+                    <vspace blankLines="1"/>
+
+                    A single peer could be used to represent a group.  From a BMP perspective, this should
+                    be simple to include a group name in the PEER UP, but it is more complex than that.
+                    BGP implementations have evolved to provide comprehensive and structured policy grouping,
+                    such as session, afi/safi, and template based group policy inheritances.
+
+                    <vspace blankLines="1"/>
+
+                    This level of structure and inheritance of polices does not provide a simple peer group
+                    name or ID, such as wholesale peer.
+
+                    <vspace blankLines="1"/>
+
+                    Instead of requiring a group name to be used, a new administrative label
+                     informational TLV (<xref target="PeerUpInfoTlv"/>) is added to the Peer UP
+                    message.  These labels have administrative scope relevance.  For example, labels
+                    "type=wholesale" and "region=west" could be used to monitor expected policies.
+
+                    <vspace blankLines="1"/>
+
+                    Configuration and assignment of labels to peers is BGP implementation specific.
+                </t>
+            </section>
         </section>
 
         <section title="Security Considerations">
@@ -396,8 +494,26 @@
                     </list>
                 </t>
             </section>
-        </section>
 
+            <section title="Peer UP Information TLV">
+                <t>
+                    This document defines the following new BMP PEER UP informational
+                    message TLV types (<xref target="PeerUpInfoTlv"/>):
+
+                    <list style="symbols">
+                        <t>
+                            Type = &IANA_PEER_INFO_TLV_ADMIN_LABEL;: Admin Label.
+                            The Information field contains a free-form UTF-8 string whose length is
+                            given by the Information Length field.  The value is administratively
+                            given by the Information Length field.  The value is administratively
+                            assigned.  There is no requirement to terminate the string with null
+                            or any other character.
+                        </t>
+                    </list>
+                </t>
+            </section>
+
+        </section>
 
     </middle>
 
