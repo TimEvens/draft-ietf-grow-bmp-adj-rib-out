@@ -253,18 +253,18 @@ Internet-Draft               BMP Adj-RIB-Out              September 2018
 
    The following new statistic types are added:
 
-   o  Stat Type = TBD: (64-bit Gauge) Number of routes in Adj-RIBs-Out
+   o  Stat Type = TBD1: (64-bit Gauge) Number of routes in Adj-RIBs-Out
       Pre-Policy.
 
-   o  Stat Type = TBD: (64-bit Gauge) Number of routes in Adj-RIBs-Out
+   o  Stat Type = TBD2: (64-bit Gauge) Number of routes in Adj-RIBs-Out
       Post-Policy.
 
-   o  Stat Type = TBD: Number of routes in per-AFI/SAFI Adj-RIB-Out Pre-
-      Policy.  The value is structured as: 2-byte Address Family
+   o  Stat Type = TBD3: Number of routes in per-AFI/SAFI Adj-RIB-Out
+      Pre- Policy.  The value is structured as: 2-byte Address Family
       Identifier (AFI), 1-byte Subsequent Address Family Identifier
       (SAFI), followed by a 64-bit Gauge.
 
-   o  Stat Type = TBD: Number of routes in per-AFI/SAFI Adj-RIB-Out
+   o  Stat Type = TBD4: Number of routes in per-AFI/SAFI Adj-RIB-Out
       Post-Policy.  The value is structured as: 2-byte Address Family
       Identifier (AFI), 1-byte Subsequent Address Family Identifier
       (SAFI), followed by a 64-bit Gauge.
@@ -292,7 +292,7 @@ Internet-Draft               BMP Adj-RIB-Out              September 2018
 
    The following peer UP information TLV types are added:
 
-   o  Type = TBD: Admin Label.  The Information field contains a free-
+   o  Type = TBD5: Admin Label.  The Information field contains a free-
       form UTF-8 string whose length is given by the Information Length
       field.  The value is administratively assigned.  There is no
       requirement to terminate the string with null or any other
@@ -370,18 +370,18 @@ Internet-Draft               BMP Adj-RIB-Out              September 2018
    This document defines four new statistic types for statistics
    reporting (Section 6.2):
 
-   o  Stat Type = TBD: (64-bit Gauge) Number of routes in Adj-RIBs-Out
+   o  Stat Type = TBD1: (64-bit Gauge) Number of routes in Adj-RIBs-Out
       Pre-Policy.
 
-   o  Stat Type = TBD: (64-bit Gauge) Number of routes in Adj-RIBs-Out
+   o  Stat Type = TBD2: (64-bit Gauge) Number of routes in Adj-RIBs-Out
       Post-Policy.
 
-   o  Stat Type = TBD: Number of routes in per-AFI/SAFI Adj-RIB-Out Pre-
-      Policy.  The value is structured as: 2-byte Address Family
+   o  Stat Type = TBD3: Number of routes in per-AFI/SAFI Adj-RIB-Out
+      Pre- Policy.  The value is structured as: 2-byte Address Family
       Identifier (AFI), 1-byte Subsequent Address Family Identifier
       (SAFI), followed by a 64-bit Gauge.
 
-   o  Stat Type = TBD: Number of routes in per-AFI/SAFI Adj-RIB-Out
+   o  Stat Type = TBD4: Number of routes in per-AFI/SAFI Adj-RIB-Out
       Post-Policy.  The value is structured as: 2-byte Address Family
       Identifier (AFI), 1-byte Subsequent Address Family Identifier
       (SAFI), followed by a 64-bit Gauge.
@@ -399,7 +399,7 @@ Internet-Draft               BMP Adj-RIB-Out              September 2018
    This document defines the following new BMP PEER UP informational
    message TLV types (Section 6.3.1):
 
-   o  Type = TBD: Admin Label.  The Information field contains a free-
+   o  Type = TBD5: Admin Label.  The Information field contains a free-
       form UTF-8 string whose length is given by the Information Length
       field.  The value is administratively given by the Information
       Length field.  The value is administratively assigned.  There is
