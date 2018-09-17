@@ -15,7 +15,7 @@ Expires: March 21, 2019                               NTT Communications
 
 
         Support for Adj-RIB-Out in BGP Monitoring Protocol (BMP)
-                   draft-ietf-grow-bmp-adj-rib-out-01
+                   draft-ietf-grow-bmp-adj-rib-out-02
 
 Abstract
 
