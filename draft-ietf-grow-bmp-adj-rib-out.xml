@@ -245,6 +245,23 @@
                 The existing flags are defined in <xref target="RFC7854">section 4.2</xref> and the
                 remaining bits are reserved for future use.  They SHOULD be transmitted as 0 and their
                 values MUST be ignored on receipt.
+                    
+                The following fields in Per-Peer Header are redefined: 
+                
+                <list style="symbols">
+                    <t>
+                        Peer Address: The remote IP address associated with the TCP
+                        session over which the encapsulated PDU was sent.
+                    </t>
+                    <t>
+                        Peer AS: The Autonomous System number of the peer from which the
+                        encapsulated PDU was sent.
+                    </t>
+                    <t>
+                        Peer BGP ID: The BGP Identifier of the peer from which the
+                        encapsulated PDU was sent.
+                    </t>                                        
+                </list>                     
             </t>
         </section>
 
