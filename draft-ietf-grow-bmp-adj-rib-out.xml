@@ -115,7 +115,7 @@
         </author>
 
 
-        <date year="2018"/>
+        <date year="2019"/>
 
         <area>General</area>
 
@@ -251,7 +251,7 @@
                 <list style="symbols">
                     <t>
                         Peer Address: The remote IP address associated with the TCP
-                        session over which the encapsulated PDU was sent.
+                        session over which the encapsulated PDU is sent.
                     </t>
                     <t>
                         Peer AS: The Autonomous System number of the peer from which the
