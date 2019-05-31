@@ -17,7 +17,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" docName="draft-ietf-grow-bmp-adj-rib-out-04"
+<rfc category="std" docName="draft-ietf-grow-bmp-adj-rib-out-05"
      ipr="trust200902" submissionType="IETF" updates="7854">
 
     <front>
@@ -175,13 +175,13 @@
 
                 <vspace blankLines="1"/>
 
-                This document updates BGP Monitoring Protocol (BMP) <xref target="RFC7854">RFC 7854</xref>
+                This document updates the BGP Monitoring Protocol (BMP) <xref target="RFC7854">RFC 7854</xref>
                 peer header by adding a new flag to distinguish Adj-RIB-In
                 verses Adj-RIB-Out.
 
                 <vspace blankLines="1"/>
 
-                Adding Adj-RIB-Out enables the ability for a BMP sender to send to a
+                Adding Adj-RIB-Out provides the ability for a BMP sender to send to a
                 BMP receiver what it advertises to BGP peers, which can be used for
                 outbound policy validation and to monitor RIBs that were advertised.
             </t>
@@ -285,10 +285,10 @@
 
             <section title="Pre-Policy">
                 <t>
-                    As with Adj-RIB-In policy validation, there are use-cases that pre-
-                    policy Adj-RIB-Out is used to validate and audit outbound policies.
-                    For example, a comparison between pre-policy and post-policy can be
-                    used to validate the outbound policy.
+                    Similarly to Adj-RIB-In policy validation, pre-policy Adj-RIB-Out can
+		    be used to validate and audit outbound policies. For example, a
+		    comparison between pre-policy and post-policy can be used to validate
+		    the outbound policy.
 
                     <vspace blankLines="1"/>
 
@@ -302,7 +302,7 @@
                     <vspace blankLines="1"/>
 
                     Some attributes are set only during transmission of the BGP message,
-                    e.g. Post-Policy.  It is common that next-hop may be null, loopback, or
+                    ie. Post-Policy.  It is common that next-hop may be null, loopback, or
                     similar during this phase.  All mandatory attributes, such as next-hop,
                     MUST be either ZERO or have an empty length if they are unknown at the
                     Pre-Policy phase.  The BMP receiver will treat zero or empty mandatory
@@ -423,15 +423,15 @@
 
                     One of the use-cases to monitor Adj-RIB-Out Post-Policy is to validate and continually
                     ensure the egress updates match what is expected. For example, wholesale peers should
-                    never have routes with community X:Y sent to them.  In this use-case, there maybe
+                    never have routes with community X:Y sent to them.  In this use-case, there may be
                     hundreds of wholesale peers but a single peer could have represented the group.
 
                     <vspace blankLines="1"/>
 
-                    A single peer could be used to represent a group.  From a BMP perspective, this should
-                    be simple to include a group name in the PEER UP, but it is more complex than that.
-                    BGP implementations have evolved to provide comprehensive and structured policy grouping,
-                    such as session, afi/safi, and template based group policy inheritances.
+                    From a BMP perspective, this should be simple to include a group name in the PEER UP,
+		    but it is more complex than that. BGP implementations have evolved to provide
+		    comprehensive and structured policy grouping, such as session, afi/safi, and template
+		    based group policy inheritances.
 
                     <vspace blankLines="1"/>
 
