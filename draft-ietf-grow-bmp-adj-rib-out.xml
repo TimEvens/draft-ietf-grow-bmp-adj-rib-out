@@ -17,7 +17,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" docName="draft-ietf-grow-bmp-adj-rib-out-05"
+<rfc category="std" docName="draft-ietf-grow-bmp-adj-rib-out-06"
      ipr="trust200902" submissionType="IETF" updates="7854">
 
     <front>
@@ -260,6 +260,13 @@
                     <t>
                         Peer BGP ID: The BGP Identifier of the peer from which the
                         encapsulated PDU was sent.
+                    </t>
+                    <t>
+			Timestamp: The time when the encapsulated routes were advertised
+      			(one may also think of this as the time when they were installed
+      			in the Adj-RIB-Out), expressed in seconds and microseconds since
+      			midnight (zero hour), January 1, 1970 (UTC).  If zero, the time is
+			unavailable. Precision of the timestamp is implementation-dependent.
                     </t>
                 </list>
             </t>
@@ -547,7 +554,8 @@
 
         <section anchor="Acknowledgements" title="Acknowledgements" numbered="no">
             <t>
-                The authors would like to thank John Scudder for his valuable input.
+                The authors would like to thank John Scudder and Mukul Srivastava for their
+		valuable input.
             </t>
         </section>
 
