@@ -88,7 +88,7 @@ Table of Contents
      9.3.  Peer UP Information TLV . . . . . . . . . . . . . . . . .   8
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
      10.1.  Normative References . . . . . . . . . . . . . . . . . .   8
-     10.2.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     10.2.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .   9
    Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .   9
    Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .   9
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
@@ -143,8 +143,10 @@ Internet-Draft               BMP Adj-RIB-Out                   June 2019
 2.  Terminology
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   document are to be interpreted as described in RFC 8174 [RFC8174].
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 RFC 2119 [RFC2119] RFC 8174 [RFC8174] when, and only when, they
+   appear in all capitals, as shown here.
 
 3.  Definitions
 
@@ -158,8 +160,6 @@ Internet-Draft               BMP Adj-RIB-Out                   June 2019
 
    o  Post-Policy Adj-RIB-Out: The result of applying outbound policy to
       an Adj-RIB-Out. This MUST be what is actually sent to the peer.
-
-
 
 
 
@@ -423,6 +423,11 @@ Internet-Draft               BMP Adj-RIB-Out                   June 2019
 
 10.1.  Normative References
 
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
               DOI 10.17487/RFC4271, January 2006,
@@ -437,11 +442,6 @@ Internet-Draft               BMP Adj-RIB-Out                   June 2019
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-10.2.  URIs
-
-   [1] https://www.iana.org/assignments/bmp-parameters/bmp-
-       parameters.xhtml
-
 
 
 
@@ -449,6 +449,11 @@ Evens, et al.           Expires December 21, 2019               [Page 8]
 
 Internet-Draft               BMP Adj-RIB-Out                   June 2019
 
+
+10.2.  URIs
+
+   [1] https://www.iana.org/assignments/bmp-parameters/bmp-
+       parameters.xhtml
 
 Acknowledgements
 
@@ -491,11 +496,6 @@ Authors' Addresses
    USA
 
    Email: tievens@cisco.com
-
-
-
-
-
 
 
 
