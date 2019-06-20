@@ -176,14 +176,16 @@
 
                 <vspace blankLines="1"/>
 
-                This document updates the BGP Monitoring Protocol (BMP) <xref target="RFC7854">RFC 7854</xref>
-                peer header by adding a new flag to distinguish Adj-RIB-In
-                verses Adj-RIB-Out.
+                BGP Monitoring Protocol (BMP) <xref target="RFC7854">RFC 7854</xref> only
+                defines Adj-RIB-In being sent to BMP receivers. This document updates
+                <xref target="RFC7854">section 4.2</xref> per-peer header by adding a new
+                flag to distinguish Adj-RIB-In verses Adj-RIB-Out. BMP senders use
+                the new flag to send either Adj-RIB-In or Adj-RIB-Out.
 
                 <vspace blankLines="1"/>
 
-                Adding Adj-RIB-Out provides the ability for a BMP sender to send to a
-                BMP receiver what it advertises to BGP peers, which can be used for
+                Adding Adj-RIB-Out provides the ability for a BMP sender to send to 
+                BMP receivers what it advertises to BGP peers, which can be used for
                 outbound policy validation and to monitor RIBs that were advertised.
             </t>
         </section>
@@ -332,9 +334,9 @@
         <section title="BMP Messages">
             <t>
                 Many BMP messages have a per-peer header but some are not applicable
-                to Adj-RIB-In or Adj-RIB-Out monitoring.  Unless otherwise defined,
-                the O flag should be set to 0 in the per-peer header in BMP
-                messages.
+                to Adj-RIB-In or Adj-RIB-Out monitoring, such as peer up and down notifications.
+                Unless otherwise defined, the O flag should be set to 0 in the per-peer header
+                in BMP messages.
             </t>
 
             <section title="Route Monitoring and Route Mirroring">
