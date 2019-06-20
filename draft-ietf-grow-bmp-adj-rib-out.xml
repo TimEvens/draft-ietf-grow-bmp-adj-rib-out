@@ -140,7 +140,7 @@
         <section title="Introduction" anchor="Introduction">
             <t>
                 BGP Monitoring Protocol (BMP) defines monitoring of the received
-                (e.g. Adj-RIB-In) Routing Information Bases (RIBs) per peer.  The
+                (e.g., Adj-RIB-In) Routing Information Bases (RIBs) per peer.  The
                 Adj-RIB-In pre-policy conveys to a BMP receiver all RIB data before
                 any policy has been applied.  The Adj-RIB-In post-policy conveys to a
                 BMP receiver all RIB data after policy filters and/or modifications
@@ -160,19 +160,19 @@
                 <vspace blankLines="1"/>
 
                 In order for a BMP receiver to receive any BGP data, the BMP sender
-                (e.g. router) needs to have an established BGP peering session and
+                (e.g., router) needs to have an established BGP peering session and
                 actively be receiving updates for an Adj-RIB-In.
 
                 <vspace blankLines="1"/>
 
                 Being able to only monitor the Adj-RIB-In puts a restriction on what
-                data is available to BMP receivers via BMP senders (e.g. routers).
+                data is available to BMP receivers via BMP senders (e.g., routers).
                 This is an issue when the receiving end of the BGP peer is not
                 enabled for BMP or when it is not accessible for administrative
                 reasons.  For example, a service provider advertises prefixes to a
                 customer, but the service provider cannot see what it advertises via
-                BMP. Asking the customer to enable BMP and monitoring of the Adj-RIB-
-                In is not feasible.
+                BMP. Asking the customer to enable BMP and monitoring of the Adj-RIB-In
+                is not feasible.
 
                 <vspace blankLines="1"/>
 
@@ -186,7 +186,7 @@
 
                 Adding Adj-RIB-Out provides the ability for a BMP sender to send to 
                 BMP receivers what it advertises to BGP peers, which can be used for
-                outbound policy validation and to monitor RIBs that were advertised.
+                outbound policy validation and to monitor routes that were advertised.
             </t>
         </section>
 
@@ -252,7 +252,8 @@
                 remaining bits are reserved for future use.  They SHOULD be transmitted as 0 and their
                 values MUST be ignored on receipt.
 
-                The following fields in Per-Peer Header are redefined:
+                <vspace blankLines="1"/>
+                The following fields in the Per-Peer Header are redefined:
 
                 <list style="symbols">
                     <t>
@@ -282,12 +283,12 @@
             <section title="Post-Policy">
                 <t>
                     The primary use-case in monitoring Adj-RIB-Out is to monitor the
-                    updates transmitted to the BGP peer after outbound policy has been
+                    updates transmitted to a BGP peer after outbound policy has been
                     applied. These updates reflect the result after modifications and
-                    filters have been applied (e.g. Adj-RIB-Out Post-Policy). Some
+                    filters have been applied (e.g., Adj-RIB-Out Post-Policy). Some
                     attributes are set when the BGP message is transmitted,
                     such as next-hop.   Adj-RIB-Out Post-Policy MUST convey what is
-                    actually transmitted to the peer, next-hop and any attribute set during
+                    actually transmitted to the peer, next-hop and any attributes set during
                     transmission should also be set and transmitted to the BMP receiver.
 
                     <vspace blankLines="1"/>
@@ -315,11 +316,11 @@
                     <vspace blankLines="1"/>
 
                     Some attributes are set only during transmission of the BGP message,
-                    ie. Post-Policy.  It is common that next-hop may be null, loopback, or
+                    i.e., Post-Policy.  It is common that next-hop may be null, loopback, or
                     similar during this phase.  All mandatory attributes, such as next-hop,
                     MUST be either ZERO or have an empty length if they are unknown at the
-                    Pre-Policy phase.  The BMP receiver will treat zero or empty mandatory
-                    attributes as self originated.
+                    Pre-Policy phase completion.  The BMP receiver will treat zero or empty
+                    mandatory attributes as self-originated.
 
                     <vspace blankLines="1"/>
 
@@ -348,7 +349,7 @@
 
             <section title="Statistics Report" anchor="StatisticsReport">
                 <t>
-                    Statistics report message has Stat Type field to indicate the
+                    The Statistics report message has a Stat Type field to indicate the
                     statistic carried in the Stat Data field. Statistics report messages
                     are not specific to Adj-RIB-In or Adj-RIB-Out and MUST have the O
                     flag set to zero. The O flag SHOULD be ignored by the BMP receiver.
@@ -386,19 +387,19 @@
 
             <section title="Peer Down and Up Notifications">
                 <t>
-                    PEER UP and DOWN notifications convey BGP peering session state to
+                    Peer Up and Down notifications convey BGP peering session state to
                     BMP receivers.  The state is independent of whether or not route
                     monitoring or route mirroring messages will be sent for Adj-RIB-In,
                     Adj-RIB-Out, or both.  BMP receiver implementations SHOULD ignore the
-                    O flag in PEER UP and DOWN notifications. BMP receiver implementations
+                    O flag in Peer Up and Down notifications. BMP receiver implementations
                     MUST use the per-peer header O flag in route monitoring and mirroring
-                    messages in order to identify if the message is for Adj-RIB-In or Adj-RIB-Out.
+                    messages to identify if the message is for Adj-RIB-In or Adj-RIB-Out.
                 </t>
 
 
                 <section title="Peer Up Information" anchor="PeerUpInfoTlv">
                     <t>
-                        The following peer UP information TLV types are added:
+                        The following Peer Up message Information TLV type is added:
 
                         <list style="symbols">
                             <t>
@@ -410,8 +411,9 @@
 
                                 <vspace blankLines="1"/>
 
-                                Multiple admin labels can be included in the Peer UP.  When multiple admin labels
-                                are included the BMP receiver MUST preserve the order.
+                                Multiple admin labels can be included in the Peer Up notification.  
+                                When multiple admin labels are included the BMP receiver MUST preserve
+                                their order.
 
                                 <vspace blankLines="1"/>
 
@@ -428,7 +430,7 @@
             <section title="Peer and Update Groups">
                 <t>
                     Peer and update groups are used to group updates shared by many peers.
-                    This is a level of efficiency in the implementation, not a true
+                    This is a level of efficiency in implementations, not a true
                     representation of what is conveyed to a peer in either Pre-Policy or
                     Post-Policy.
 
@@ -441,10 +443,10 @@
 
                     <vspace blankLines="1"/>
 
-                    From a BMP perspective, this should be simple to include a group name in the PEER UP,
-		    but it is more complex than that. BGP implementations have evolved to provide
-		    comprehensive and structured policy grouping, such as session, afi/safi, and template
-		    based group policy inheritances.
+                    From a BMP perspective, this should be simple to include a group name in the Peer Up,
+		            but it is more complex than that. BGP implementations have evolved to provide
+		            comprehensive and structured policy grouping, such as session, AFI/SAFI, and
+                    template-based based group policy inheritances.
 
                     <vspace blankLines="1"/>
 
@@ -454,7 +456,7 @@
                     <vspace blankLines="1"/>
 
                     Instead of requiring a group name to be used, a new administrative label
-                     informational TLV (<xref target="PeerUpInfoTlv"/>) is added to the Peer UP
+                     informational TLV (<xref target="PeerUpInfoTlv"/>) is added to the Peer Up
                     message.  These labels have administrative scope relevance.  For example, labels
                     "type=wholesale" and "region=west" could be used to monitor expected policies.
 
@@ -482,7 +484,7 @@
 
             <section title="BMP Peer Flags">
                 <t>
-                    This document defines the following new per-peer header flags (<xref target="PeerFlags"/>):
+                    This document defines the following per-peer header flags (<xref target="PeerFlags"/>):
 
                     <list style="symbols">
                         <t>
@@ -495,7 +497,7 @@
 
             <section title="BMP Statistics Types">
                 <t>
-                    This document defines four new statistic types for statistics
+                    This document defines four statistic types for statistics
                     reporting (<xref target="StatisticsReport"/>):
 
                     <list style="symbols">
@@ -526,10 +528,10 @@
                 </t>
             </section>
 
-            <section title="Peer UP Information TLV">
+            <section title="Peer Up Information TLV">
                 <t>
-                    This document defines the following new BMP PEER UP informational
-                    message TLV types (<xref target="PeerUpInfoTlv"/>):
+                    This document defines the following BMP Peer Up Information
+                    TLV types (<xref target="PeerUpInfoTlv"/>):
 
                     <list style="symbols">
                         <t>
