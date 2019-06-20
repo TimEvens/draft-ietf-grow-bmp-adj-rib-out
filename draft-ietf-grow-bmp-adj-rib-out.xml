@@ -330,7 +330,7 @@
         <section title="BMP Messages">
             <t>
                 Many BMP messages have a per-peer header but some are not applicable
-                to Adj-RIB-In or Adj-RIB-Out monitoring, such as peer up and down notficiations.
+                to Adj-RIB-In or Adj-RIB-Out monitoring, such as peer up and down notifications.
                 Unless otherwise defined, the O flag should be set to 0 in the per-peer header
                 in BMP messages.
             </t>
