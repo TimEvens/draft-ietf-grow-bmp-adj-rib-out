@@ -144,7 +144,7 @@
                 Adj-RIB-In pre-policy conveys to a BMP receiver all RIB data before
                 any policy has been applied.  The Adj-RIB-In post-policy conveys to a
                 BMP receiver all RIB data after policy filters and/or modifications
-                have been applied.  An example of pre-policy verses post-policy is
+                have been applied.  An example of pre-policy versus post-policy is
                 when an inbound policy applies attribute modification or filters.
                 Pre-policy would contain information prior to the inbound policy
                 changes or filters of data. Post policy would convey the changed data
@@ -178,9 +178,9 @@
 
                 BGP Monitoring Protocol (BMP) <xref target="RFC7854">RFC 7854</xref> only
                 defines Adj-RIB-In being sent to BMP receivers. This document updates
-                <xref target="RFC7854">section 4.2</xref> per-peer header by adding a new
-                flag to distinguish Adj-RIB-In verses Adj-RIB-Out. BMP senders use
-                the new flag to send either Adj-RIB-In or Adj-RIB-Out.
+                the per-peer header in <xref target="RFC7854">section 4.2 of</xref> by
+		adding a new flag to distinguish Adj-RIB-In versus Adj-RIB-Out. BMP
+		senders use the new flag to send either Adj-RIB-In or Adj-RIB-Out.
 
                 <vspace blankLines="1"/>
 
@@ -227,7 +227,8 @@
         <section title="Per-Peer Header" anchor="PeerFlags">
             <t>
                 The per-peer header has the same structure and flags as defined in
-                <xref target="RFC7854">section 4.2</xref> with the following O flag addition:
+                <xref target="RFC7854">section 4.2 of</xref> with the following O flag
+		addition:
             </t>
             <figure align="center">
                 <artwork align="center"><![CDATA[
@@ -248,12 +249,13 @@
 
                 <vspace blankLines="1"/>
 
-                The existing flags are defined in <xref target="RFC7854">section 4.2</xref> and the
-                remaining bits are reserved for future use.  They SHOULD be transmitted as 0 and their
-                values MUST be ignored on receipt.
+                The existing flags are defined in <xref target="RFC7854">section 4.2 of</xref> and
+		the remaining bits are reserved for future use.  They MUST be transmitted as 0 and
+		their values MUST be ignored on receipt.
 
                 <vspace blankLines="1"/>
-                The following fields in the Per-Peer Header are redefined:
+                When the O flag is set to 1, the following fields in the Per-Peer Header are
+		redefined:
 
                 <list style="symbols">
                     <t>
@@ -404,10 +406,10 @@
                         <list style="symbols">
                             <t>
                                 Type = &IANA_PEER_INFO_TLV_ADMIN_LABEL;: Admin Label.
-                                The Information field contains a free-form UTF-8 string whose length is
-                                given by the Information Length field.  The value is administratively
-                                assigned.  There is no requirement to terminate the string with null
-                                or any other character.
+                                The Information field contains a free-form UTF-8 string whose byte
+				length is given by the Information Length field.  The value is
+				administratively assigned.  There is no requirement to terminate
+				the string with null or any other character.
 
                                 <vspace blankLines="1"/>
 
@@ -469,10 +471,10 @@
 
         <section title="Security Considerations">
             <t>
-                The same considerations as in <xref target="RFC7854">11</xref> apply to this document.
-		Implementations of this protocol SHOULD require to establish sessions with authorized
-		and trusted monitoring devices. It is also believed that this document does not add
-		any additional security considerations.
+                The same considerations as in <xref target="RFC7854">section 11 of</xref> apply to this
+		document. Implementations of this protocol SHOULD require to establish sessions with
+		authorized and trusted monitoring devices. It is also believed that this document does
+		not add any additional security considerations.
             </t>
         </section>
 
@@ -538,11 +540,11 @@
                     <list style="symbols">
                         <t>
                             Type = &IANA_PEER_INFO_TLV_ADMIN_LABEL;: Admin Label.
-                            The Information field contains a free-form UTF-8 string whose length is
-                            given by the Information Length field.  The value is administratively
-                            given by the Information Length field.  The value is administratively
-                            assigned.  There is no requirement to terminate the string with null
-                            or any other character.
+                            The Information field contains a free-form UTF-8 string whose byte
+			    length is given by the Information Length field.  The value is
+			    administratively given by the Information Length field.  The value
+			    is administratively assigned.  There is no requirement to terminate
+			    the string with null or any other character.
                         </t>
                     </list>
                 </t>
