@@ -469,8 +469,10 @@
 
         <section title="Security Considerations">
             <t>
-                It is not believed that this document adds any additional security
-                considerations.
+                The same considerations as in <xref target="RFC7854">11</xref> apply to this document.
+		Implementations of this protocol SHOULD require to establish sessions with authorized
+		and trusted monitoring devices. It is also believed that this document does not add
+		any additional security considerations.
             </t>
         </section>
 

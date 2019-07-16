@@ -6,12 +6,12 @@ Global Routing Operations                                       T. Evens
 Internet-Draft                                              S. Bayraktar
 Updates: 7854 (if approved)                                Cisco Systems
 Intended status: Standards Track                              P. Lucente
-Expires: December 25, 2019                            NTT Communications
+Expires: January 17, 2020                             NTT Communications
                                                                    P. Mi
                                                                  Tencent
                                                                S. Zhuang
                                                                   Huawei
-                                                           June 23, 2019
+                                                           July 16, 2019
 
 
         Support for Adj-RIB-Out in BGP Monitoring Protocol (BMP)
@@ -33,14 +33,14 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 25, 2019.
+   This Internet-Draft will expire on January 17, 2020.
 
 Copyright Notice
 
@@ -49,13 +49,13 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (http://trustee.ietf.org/license-info) in effect on the date of
+   (https://trustee.ietf.org/license-info) in effect on the date of
 
 
 
-Evens, et al.           Expires December 25, 2019               [Page 1]
+Evens, et al.           Expires January 17, 2020                [Page 1]
 
-Internet-Draft               BMP Adj-RIB-Out                   June 2019
+Internet-Draft               BMP Adj-RIB-Out                   July 2019
 
 
    publication of this document.  Please review these documents
@@ -83,7 +83,7 @@ Table of Contents
      7.1.  Peer and Update Groups  . . . . . . . . . . . . . . . . .   7
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
-     9.1.  BMP Peer Flags  . . . . . . . . . . . . . . . . . . . . .   7
+     9.1.  BMP Peer Flags  . . . . . . . . . . . . . . . . . . . . .   8
      9.2.  BMP Statistics Types  . . . . . . . . . . . . . . . . . .   8
      9.3.  Peer Up Information TLV . . . . . . . . . . . . . . . . .   8
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Evens, et al.           Expires December 25, 2019               [Page 2]
+Evens, et al.           Expires January 17, 2020                [Page 2]
 
-Internet-Draft               BMP Adj-RIB-Out                   June 2019
+Internet-Draft               BMP Adj-RIB-Out                   July 2019
 
 
    Monitoring the received updates that the router received before any
@@ -165,9 +165,9 @@ Internet-Draft               BMP Adj-RIB-Out                   June 2019
 
 
 
-Evens, et al.           Expires December 25, 2019               [Page 3]
+Evens, et al.           Expires January 17, 2020                [Page 3]
 
-Internet-Draft               BMP Adj-RIB-Out                   June 2019
+Internet-Draft               BMP Adj-RIB-Out                   July 2019
 
 
    o  Post-Policy Adj-RIB-Out: The result of applying outbound policy to
@@ -221,9 +221,9 @@ Internet-Draft               BMP Adj-RIB-Out                   June 2019
 
 
 
-Evens, et al.           Expires December 25, 2019               [Page 4]
+Evens, et al.           Expires January 17, 2020                [Page 4]
 
-Internet-Draft               BMP Adj-RIB-Out                   June 2019
+Internet-Draft               BMP Adj-RIB-Out                   July 2019
 
 
    transmitted to the peer, next-hop and any attributes set during
@@ -277,9 +277,9 @@ Internet-Draft               BMP Adj-RIB-Out                   June 2019
 
 
 
-Evens, et al.           Expires December 25, 2019               [Page 5]
+Evens, et al.           Expires January 17, 2020                [Page 5]
 
-Internet-Draft               BMP Adj-RIB-Out                   June 2019
+Internet-Draft               BMP Adj-RIB-Out                   July 2019
 
 
    o  Stat Type = 14: (64-bit Gauge) Number of routes in Adj-RIBs-Out
@@ -333,9 +333,9 @@ Internet-Draft               BMP Adj-RIB-Out                   June 2019
 
 
 
-Evens, et al.           Expires December 25, 2019               [Page 6]
+Evens, et al.           Expires January 17, 2020                [Page 6]
 
-Internet-Draft               BMP Adj-RIB-Out                   June 2019
+Internet-Draft               BMP Adj-RIB-Out                   July 2019
 
 
 7.1.  Peer and Update Groups
@@ -372,7 +372,10 @@ Internet-Draft               BMP Adj-RIB-Out                   June 2019
 
 8.  Security Considerations
 
-   It is not believed that this document adds any additional security
+   The same considerations as in 11 [RFC7854] apply to this document.
+   Implementations of this protocol SHOULD require to establish sessions
+   with authorized and trusted monitoring devices.  It is also believed
+   that this document does not add any additional security
    considerations.
 
 9.  IANA Considerations
@@ -380,19 +383,21 @@ Internet-Draft               BMP Adj-RIB-Out                   June 2019
    This document requests that IANA assign the following new parameters
    to the BMP parameters name space [1].
 
+
+
+
+
+
+
+Evens, et al.           Expires January 17, 2020                [Page 7]
+
+Internet-Draft               BMP Adj-RIB-Out                   July 2019
+
+
 9.1.  BMP Peer Flags
 
    This document defines the following per-peer header flags
    (Section 4):
-
-
-
-
-
-Evens, et al.           Expires December 25, 2019               [Page 7]
-
-Internet-Draft               BMP Adj-RIB-Out                   June 2019
-
 
    o  Flag 3 as O flag: The O flag indicates Adj-RIB-In if set to 0 and
       Adj-RIB-Out if set to 1.
@@ -434,31 +439,31 @@ Internet-Draft               BMP Adj-RIB-Out                   June 2019
 
 10.1.  Normative References
 
+
+
+
+
+
+
+Evens, et al.           Expires January 17, 2020                [Page 8]
+
+Internet-Draft               BMP Adj-RIB-Out                   July 2019
+
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997, <https://www.rfc-
-              editor.org/info/rfc2119>.
-
-
-
-
-
-
-
-Evens, et al.           Expires December 25, 2019               [Page 8]
-
-Internet-Draft               BMP Adj-RIB-Out                   June 2019
-
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
-              DOI 10.17487/RFC4271, January 2006, <https://www.rfc-
-              editor.org/info/rfc4271>.
+              DOI 10.17487/RFC4271, January 2006,
+              <https://www.rfc-editor.org/info/rfc4271>.
 
    [RFC7854]  Scudder, J., Ed., Fernando, R., and S. Stuart, "BGP
               Monitoring Protocol (BMP)", RFC 7854,
-              DOI 10.17487/RFC7854, June 2016, <https://www.rfc-
-              editor.org/info/rfc7854>.
+              DOI 10.17487/RFC7854, June 2016,
+              <https://www.rfc-editor.org/info/rfc7854>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -493,19 +498,19 @@ Contributors
 
    Weiguo
    Tencent
+
+
+
+Evens, et al.           Expires January 17, 2020                [Page 9]
+
+Internet-Draft               BMP Adj-RIB-Out                   July 2019
+
+
    Tencent Building, Kejizhongyi Avenue,
    Hi-techPark, Nanshan District,Shenzhen 518057, P.R.China
 
 
    Shugang cheng
-
-
-
-Evens, et al.           Expires December 25, 2019               [Page 9]
-
-Internet-Draft               BMP Adj-RIB-Out                   June 2019
-
-
    H3C
 
 
@@ -547,6 +552,16 @@ Authors' Addresses
    Email: kevinmi@tencent.com
 
 
+
+
+
+
+
+Evens, et al.           Expires January 17, 2020               [Page 10]
+
+Internet-Draft               BMP Adj-RIB-Out                   July 2019
+
+
    Shunwan Zhuang
    Huawei
    Huawei Bld., No.156 Beiqing Rd.
@@ -557,4 +572,45 @@ Authors' Addresses
 
 
 
-Evens, et al.           Expires December 25, 2019              [Page 10]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Evens, et al.           Expires January 17, 2020               [Page 11]
