@@ -218,7 +218,8 @@
 
                     <t>
                         Post-Policy Adj-RIB-Out: The result of applying outbound policy to
-                        an Adj-RIB-Out. This MUST be what is actually sent to the peer.
+                        an Adj-RIB-Out. This MUST convey to the BMP receiver what is actually
+			transmitted to the peer.
                     </t>
                 </list>
             </t>
@@ -263,12 +264,12 @@
                         session over which the encapsulated PDU is sent.
                     </t>
                     <t>
-                        Peer AS: The Autonomous System number of the peer from which the
-                        encapsulated PDU was sent.
+                        Peer AS: The Autonomous System number of the peer to which the
+                        encapsulated PDU is sent.
                     </t>
                     <t>
-                        Peer BGP ID: The BGP Identifier of the peer from which the
-                        encapsulated PDU was sent.
+                        Peer BGP ID: The BGP Identifier of the peer to which the
+                        encapsulated PDU is sent.
                     </t>
                     <t>
 			Timestamp: The time when the encapsulated routes were advertised
@@ -289,9 +290,8 @@
                     applied. These updates reflect the result after modifications and
                     filters have been applied (e.g., Adj-RIB-Out Post-Policy). Some
                     attributes are set when the BGP message is transmitted,
-                    such as next-hop.   Adj-RIB-Out Post-Policy MUST convey what is
-                    actually transmitted to the peer, next-hop and any attributes set during
-                    transmission should also be set and transmitted to the BMP receiver.
+                    such as next-hop. Adj-RIB-Out Post-Policy MUST convey to the BMP
+		    receiver what is actually transmitted to the peer.
 
                     <vspace blankLines="1"/>
 
@@ -319,7 +319,7 @@
 
                     Some attributes are set only during transmission of the BGP message,
                     i.e., Post-Policy.  It is common that next-hop may be null, loopback, or
-                    similar during this phase.  All mandatory attributes, such as next-hop,
+                    similar during pre-policy phase. All mandatory attributes, such as next-hop,
                     MUST be either ZERO or have an empty length if they are unknown at the
                     Pre-Policy phase completion.  The BMP receiver will treat zero or empty
                     mandatory attributes as self-originated.
@@ -393,9 +393,7 @@
                     BMP receivers.  The state is independent of whether or not route
                     monitoring or route mirroring messages will be sent for Adj-RIB-In,
                     Adj-RIB-Out, or both.  BMP receiver implementations SHOULD ignore the
-                    O flag in Peer Up and Down notifications. BMP receiver implementations
-                    MUST use the per-peer header O flag in route monitoring and mirroring
-                    messages to identify if the message is for Adj-RIB-In or Adj-RIB-Out.
+                    O flag in Peer Up and Down notifications.
                 </t>
 
 
