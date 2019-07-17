@@ -33,7 +33,7 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at https://datatracker.ietf.org/drafts/current/.
+   Drafts is at http://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
@@ -49,7 +49,7 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (https://trustee.ietf.org/license-info) in effect on the date of
+   (http://trustee.ietf.org/license-info) in effect on the date of
 
 
 
@@ -86,8 +86,8 @@ Table of Contents
      9.1.  BMP Peer Flags  . . . . . . . . . . . . . . . . . . . . .   8
      9.2.  BMP Statistics Types  . . . . . . . . . . . . . . . . . .   8
      9.3.  Peer Up Information TLV . . . . . . . . . . . . . . . . .   8
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .   8
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .   9
      10.2.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .   9
    Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .   9
    Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .   9
@@ -430,15 +430,15 @@ Internet-Draft               BMP Adj-RIB-Out                   July 2019
 
    o  Type = 4: Admin Label.  The Information field contains a free-form
       UTF-8 string whose byte length is given by the Information Length
-      field.  The value is administratively given by the Information
-      Length field.  The value is administratively assigned.  There is
-      no requirement to terminate the string with null or any other
+      field.  The value is administratively assigned.  There is no
+      requirement to terminate the string with null or any other
       character.
 
-10.  References
+      Multiple admin labels can be included in the Peer Up notification.
+      When multiple admin labels are included the BMP receiver MUST
+      preserve their order.
 
-10.1.  Normative References
-
+      The TLV is optional.
 
 
 
@@ -450,20 +450,24 @@ Evens, et al.           Expires January 17, 2020                [Page 8]
 Internet-Draft               BMP Adj-RIB-Out                   July 2019
 
 
+10.  References
+
+10.1.  Normative References
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
+              DOI 10.17487/RFC2119, March 1997, <https://www.rfc-
+              editor.org/info/rfc2119>.
 
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
-              DOI 10.17487/RFC4271, January 2006,
-              <https://www.rfc-editor.org/info/rfc4271>.
+              DOI 10.17487/RFC4271, January 2006, <https://www.rfc-
+              editor.org/info/rfc4271>.
 
    [RFC7854]  Scudder, J., Ed., Fernando, R., and S. Stuart, "BGP
               Monitoring Protocol (BMP)", RFC 7854,
-              DOI 10.17487/RFC7854, June 2016,
-              <https://www.rfc-editor.org/info/rfc7854>.
+              DOI 10.17487/RFC7854, June 2016, <https://www.rfc-
+              editor.org/info/rfc7854>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -496,16 +500,14 @@ Contributors
    Hi-techPark, Nanshan District,Shenzhen 518057, P.R.China
 
 
-   Weiguo
-   Tencent
-
-
 
 Evens, et al.           Expires January 17, 2020                [Page 9]
 
 Internet-Draft               BMP Adj-RIB-Out                   July 2019
 
 
+   Weiguo
+   Tencent
    Tencent Building, Kejizhongyi Avenue,
    Hi-techPark, Nanshan District,Shenzhen 518057, P.R.China
 
@@ -550,8 +552,6 @@ Authors' Addresses
    China
 
    Email: kevinmi@tencent.com
-
-
 
 
 
