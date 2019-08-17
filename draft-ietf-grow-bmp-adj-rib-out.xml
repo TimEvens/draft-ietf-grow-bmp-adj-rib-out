@@ -18,7 +18,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" docName="draft-ietf-grow-bmp-adj-rib-out-06"
+<rfc category="std" docName="draft-ietf-grow-bmp-adj-rib-out-07"
      ipr="trust200902" submissionType="IETF" updates="7854">
 
     <front>
@@ -405,9 +405,9 @@
                             <t>
                                 Type = &IANA_PEER_INFO_TLV_ADMIN_LABEL;: Admin Label.
                                 The Information field contains a free-form UTF-8 string whose byte
-				length is given by the Information Length field.  The value is
-				administratively assigned.  There is no requirement to terminate
-				the string with null or any other character.
+				                length is given by the Information Length field.  The value is
+				                administratively assigned.  There is no requirement to terminate
+				                the string with null or any other character.
 
                                 <vspace blankLines="1"/>
 
@@ -539,10 +539,19 @@
                         <t>
                             Type = &IANA_PEER_INFO_TLV_ADMIN_LABEL;: Admin Label.
                             The Information field contains a free-form UTF-8 string whose byte
-			    length is given by the Information Length field.  The value is
-			    administratively given by the Information Length field.  The value
-			    is administratively assigned.  There is no requirement to terminate
-			    the string with null or any other character.
+                            length is given by the Information Length field.  The value is
+                            administratively assigned.  There is no requirement to terminate
+                            the string with null or any other character.
+
+                            <vspace blankLines="1"/>
+
+                            Multiple admin labels can be included in the Peer Up notification.  
+                            When multiple admin labels are included the BMP receiver MUST preserve
+                            their order.
+
+                            <vspace blankLines="1"/>
+
+                            The TLV is optional.
                         </t>
                     </list>
                 </t>
