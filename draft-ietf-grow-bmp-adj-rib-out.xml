@@ -465,6 +465,13 @@
                     Configuration and assignment of labels to peers is BGP implementation specific.
                 </t>
             </section>
+	    <section title="Changes to existing BMP sessions">
+		<t>
+		    In case of any change that results in the alteration of behaviour of
+		    an existing BMP session, ie. changes to filtering and table names, the
+		    session MUST be bounced with a Peer DOWN/Peer UP sequence.
+		</t>
+	    </section>
         </section>
 
         <section title="Security Considerations">

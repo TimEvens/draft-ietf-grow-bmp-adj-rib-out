@@ -81,8 +81,9 @@ Table of Contents
        6.3.1.  Peer Up Information . . . . . . . . . . . . . . . . .   6
    7.  Other Considerations  . . . . . . . . . . . . . . . . . . . .   6
      7.1.  Peer and Update Groups  . . . . . . . . . . . . . . . . .   7
+     7.2.  Changes to existing BMP sessions  . . . . . . . . . . . .   7
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
      9.1.  BMP Peer Flags  . . . . . . . . . . . . . . . . . . . . .   8
      9.2.  BMP Statistics Types  . . . . . . . . . . . . . . . . . .   8
      9.3.  Peer Up Information TLV . . . . . . . . . . . . . . . . .   8
@@ -105,7 +106,6 @@ Table of Contents
    Pre-policy would contain information prior to the inbound policy
    changes or filters of data.  Post policy would convey the changed
    data or would not contain the filtered data.
-
 
 
 
@@ -370,6 +370,12 @@ Internet-Draft               BMP Adj-RIB-Out                 August 2019
    Configuration and assignment of labels to peers is BGP implementation
    specific.
 
+7.2.  Changes to existing BMP sessions
+
+   In case of any change that results in the alteration of behaviour of
+   an existing BMP session, ie. changes to filtering and table names,
+   the session MUST be bounced with a Peer DOWN/Peer UP sequence.
+
 8.  Security Considerations
 
    The same considerations as in section 11 of [RFC7854] apply to this
@@ -377,12 +383,6 @@ Internet-Draft               BMP Adj-RIB-Out                 August 2019
    establish sessions with authorized and trusted monitoring devices.
    It is also believed that this document does not add any additional
    security considerations.
-
-9.  IANA Considerations
-
-   This document requests that IANA assign the following new parameters
-   to the BMP parameters name space [1].
-
 
 
 
@@ -393,6 +393,11 @@ Evens, et al.           Expires February 18, 2020               [Page 7]
 
 Internet-Draft               BMP Adj-RIB-Out                 August 2019
 
+
+9.  IANA Considerations
+
+   This document requests that IANA assign the following new parameters
+   to the BMP parameters name space [1].
 
 9.1.  BMP Peer Flags
 
@@ -438,17 +443,14 @@ Internet-Draft               BMP Adj-RIB-Out                 August 2019
       When multiple admin labels are included the BMP receiver MUST
       preserve their order.
 
-      The TLV is optional.
-
-
-
-
 
 
 Evens, et al.           Expires February 18, 2020               [Page 8]
 
 Internet-Draft               BMP Adj-RIB-Out                 August 2019
 
+
+      The TLV is optional.
 
 10.  References
 
@@ -496,14 +498,16 @@ Contributors
 
    Xianyuzheng
    Tencent
-   Tencent Building, Kejizhongyi Avenue,
-   Hi-techPark, Nanshan District,Shenzhen 518057, P.R.China
 
 
 
 Evens, et al.           Expires February 18, 2020               [Page 9]
 
 Internet-Draft               BMP Adj-RIB-Out                 August 2019
+
+
+   Tencent Building, Kejizhongyi Avenue,
+   Hi-techPark, Nanshan District,Shenzhen 518057, P.R.China
 
 
    Weiguo
@@ -545,13 +549,9 @@ Authors' Addresses
    Email: paolo@ntt.net
 
 
-   Penghui Mi
-   Tencent
-   Tengyun Building,Tower A ,No. 397 Tianlin Road
-   Shanghai  200233
-   China
 
-   Email: kevinmi@tencent.com
+
+
 
 
 
@@ -562,6 +562,15 @@ Evens, et al.           Expires February 18, 2020              [Page 10]
 Internet-Draft               BMP Adj-RIB-Out                 August 2019
 
 
+   Penghui Mi
+   Tencent
+   Tengyun Building,Tower A ,No. 397 Tianlin Road
+   Shanghai  200233
+   China
+
+   Email: kevinmi@tencent.com
+
+
    Shunwan Zhuang
    Huawei
    Huawei Bld., No.156 Beiqing Rd.
@@ -569,15 +578,6 @@ Internet-Draft               BMP Adj-RIB-Out                 August 2019
    China
 
    Email: zhuangshunwan@huawei.com
-
-
-
-
-
-
-
-
-
 
 
 
