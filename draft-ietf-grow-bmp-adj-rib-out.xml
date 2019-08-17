@@ -446,7 +446,7 @@
                     From a BMP perspective, this should be simple to include a group name in the Peer Up,
 		            but it is more complex than that. BGP implementations have evolved to provide
 		            comprehensive and structured policy grouping, such as session, AFI/SAFI, and
-                    template-based based group policy inheritances.
+                    template-based group policy inheritances.
 
                     <vspace blankLines="1"/>
 
