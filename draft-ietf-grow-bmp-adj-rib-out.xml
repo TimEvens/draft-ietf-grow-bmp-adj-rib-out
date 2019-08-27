@@ -446,7 +446,7 @@
                     From a BMP perspective, this should be simple to include a group name in the Peer Up,
 		            but it is more complex than that. BGP implementations have evolved to provide
 		            comprehensive and structured policy grouping, such as session, AFI/SAFI, and
-                    template-based based group policy inheritances.
+                    template-based group policy inheritances.
 
                     <vspace blankLines="1"/>
 
@@ -465,6 +465,13 @@
                     Configuration and assignment of labels to peers is BGP implementation specific.
                 </t>
             </section>
+	    <section title="Changes to existing BMP sessions">
+		<t>
+		    In case of any change that results in the alteration of behaviour of
+		    an existing BMP session, ie. changes to filtering and table names, the
+		    session MUST be bounced with a Peer DOWN/Peer UP sequence.
+		</t>
+	    </section>
         </section>
 
         <section title="Security Considerations">
